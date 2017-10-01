@@ -83,7 +83,7 @@ Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
-As this nverse Kinematic problem can be divided into Inverse Position kinematics and inverse Orientation Kinematics, 
+As this Inverse Kinematic problem can be divided into Inverse Position kinematics and inverse Orientation Kinematics, 
 all we need is to find out wrist centre as below
 ```python
     r, p, y = symbols('r p y')
@@ -114,7 +114,7 @@ all we need is to find out wrist centre as below
     WC = EE - (0.303) * ROT_EE[:, 2]
 ```
 
-First 3 thetas can be derived as following with respective to wrist centre.
+First 3 thetas can be derived as following with respective to spherical wrist centre.
 ```python
 
     # Calculte joint angles using Geometric IK method
@@ -165,6 +165,8 @@ until testing result matched accordingly.
 In IK_server.py, I moved code with sympy before the for loop. It does reasonable well for certain IK but also spent 7-10+ seconds on other IK path.
 ![alt text][image3]
 
+Conclusion:
+I find myself learning much better with sample code. The walkthrough video actually clear a lot of doubts about IK workflow. I wish the course can have a smaller 3 joints robot as project first, before having this project.
 With reinforcement learning, Deep Q network and sensors, I wonder whether we can train IK functions like Baxter robots, https://www.youtube.com/watch?v=nA-J0510Pxs
 
 
