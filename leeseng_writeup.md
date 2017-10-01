@@ -18,7 +18,7 @@
 
 [image1]: ./misc_images/Robo-DH.png
 [image2]: ./misc_images/misc3.png
-[image3]: ./misc_images/IK-slow-3rdcan.png
+[image3]: ./misc_images/IK-8in.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -31,9 +31,17 @@
 Following is the schematic to derive DH Parameters. Right hands rule is useful to layout directions of X and Z axis in each joint.
 ![alt text][image1]
 
-With schematic above and kr210.urdf.xacro, we can derive DH table as following.
+With schematic above and kr210.urdf.xacro, and following algorithm:
 
-Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
+Twist angle, alpha(i-1) is the angle between Zi-1 to Zi measured about Xi-1
+Link length, a(i-1) is the distance from Zi-1 to Zi measured along Xi-1
+Offset length, d(i), is the distance from Xi-1 to Xi measured along Zi
+Joint angle, theta(i), is the angle between Xi-1 to Xi measured about Zi
+
+
+We can derive following DH table
+
+Link (i-1-> i) | alpha(i-1) | a(i-1) | d(i) | theta(i)
 --- | --- | --- | --- | ---
 0->1 | 0 | 0 | 0.33+0.42 | 0+q1
 1->2 | - pi/2 | 0.35 | 0 | -pi/2 + q2
@@ -42,6 +50,9 @@ Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 4->5 |   pi/2 | 0 | 0 | 0+q5
 5->6 | - pi/2 | 0 | 0 | 0+q6
 6->EE | 0 | 0 | 0.193+0.11 | 0
+
+
+
 
 
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
@@ -84,7 +95,7 @@ Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 As this Inverse Kinematic problem can be divided into Inverse Position kinematics and inverse Orientation Kinematics, 
-all we need is to find out wrist centre as below
+all we need is to find out spherical wrist centre as below
 ```python
     r, p, y = symbols('r p y')
 
@@ -147,9 +158,14 @@ Whereas the last 3 thetas can be derived as following
 
     #Euler angles from rotation matrix
     #More information can e found in the Euler Angles from a Rotation Matrix section
-    theta4 = atan2(R3_6[2,2], -R3_6[0,2])
-    theta5 = atan2(sqrt(R3_6[0,2]*R3_6[0,2] + R3_6[2,2]*R3_6[2,2]), R3_6[1,2])
-    theta6 = atan2( -R3_6[1,1], R3_6[1,0])
+    #
+    theta5 = atan2(sqrt(R3_6[0, 2] * R3_6[0, 2] + R3_6[2, 2] * R3_6[2, 2]), R3_6[1, 2])
+            if sin(theta5) < 0.0:
+                theta4 = atan2(-R3_6[2, 2], R3_6[0, 2])
+                theta6 = atan2(R3_6[1, 1], -R3_6[1, 0])
+            else:
+                theta4 = atan2(R3_6[2, 2], -R3_6[0, 2])
+                theta6 = atan2(-R3_6[1, 1], R3_6[1, 0])
 
 ```
 
@@ -162,11 +178,14 @@ My IK_server.py can be found at https://github.com/tealeeseng/RoboND-Kinematics-
 I got most of the sample code from https://www.youtube.com/watch?v=Gt8DRm-REt4 and trial runs in https://github.com/tealeeseng/RoboND-Kinematics-Project/blob/master/IK_debug.py.
 until testing result matched accordingly.
 
-In IK_server.py, I moved code with sympy before the for loop. It does reasonable well for certain IK but also spent 7-10+ seconds on other IK path.
+In IK_server.py, I moved code with sympy before the for loop. After 54 minutes of simulation, the IK_server.py managed to drop 8 cans into the bin, while 2 cans dropped during IK long running calculation.
 ![alt text][image3]
 
 Conclusion:
-I find myself learning much better with sample code. The walkthrough video actually clear a lot of doubts about IK workflow. I wish the course can have a smaller 3 joints robot as project first, before having this project.
+I find myself learning much better with sample code. The walkthrough video actually clear a lot of doubts about IK workflow. 
+I wish the course can have a smaller 3 joints robot as a smaller project, before having this project.
+In this projec, I learnt about sympy, gazebo simulator, trigonometry, matrix, Forward Kinematic and Inverse Kinematic.
+
 With reinforcement learning, Deep Q network and sensors, I wonder whether we can train IK functions like Baxter robots, https://www.youtube.com/watch?v=nA-J0510Pxs
 
 

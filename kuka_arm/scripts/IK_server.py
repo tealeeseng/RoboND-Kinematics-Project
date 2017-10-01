@@ -161,7 +161,7 @@ def handle_calculate_IK(req):
             #     q6 = atan2(-r22, r21)
 
             theta5 = atan2(sqrt(R3_6[0, 2] * R3_6[0, 2] + R3_6[2, 2] * R3_6[2, 2]), R3_6[1, 2])
-            if sin(theta5) <0:
+            if sin(theta5) < 0.0:
                 theta4 = atan2(-R3_6[2, 2], R3_6[0, 2])
                 theta6 = atan2(R3_6[1, 1], -R3_6[1, 0])
             else:
