@@ -32,12 +32,12 @@ Following is the schematic to derive DH Parameters. Right hands rule is useful t
 ![alt text][image1]
 
 With schematic above and kr210.urdf.xacro, and following algorithm:
-
+```
 Twist angle, alpha(i-1) is the angle between Zi-1 to Zi measured about Xi-1
 Link length, a(i-1) is the distance from Zi-1 to Zi measured along Xi-1
 Offset length, d(i), is the distance from Xi-1 to Xi measured along Zi
 Joint angle, theta(i), is the angle between Xi-1 to Xi measured about Zi
-
+```
 
 We can derive following DH table
 
@@ -184,7 +184,8 @@ In IK_server.py, I moved code with sympy before the for loop. After 54 minutes o
 Conclusion:
 I find myself learning much better with sample code. The walkthrough video actually clear a lot of doubts about IK workflow. 
 I wish the course can have a smaller 3 joints robot as a smaller project, before having this project.
-In this projec, I learnt about sympy, gazebo simulator, trigonometry, matrix, Forward Kinematic and Inverse Kinematic.
+In this projec, I learnt about sympy, gazebo simulator, trigonometry, matrix, Forward Kinematic and Inverse Kinematic. 
+Thanks a lot to reviewers for their helpful feedbacks. :)
 
 With reinforcement learning, Deep Q network and sensors, I wonder whether we can train IK functions like Baxter robots, https://www.youtube.com/watch?v=nA-J0510Pxs
 
