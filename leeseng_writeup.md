@@ -16,7 +16,7 @@
 
 [//]: # (Image References)
 
-[image1]: ./misc_images/misc1.png
+[image1]: ./misc_images/Robo-DH.png
 [image2]: ./misc_images/misc3.png
 [image3]: ./misc_images/misc2.png
 
@@ -28,11 +28,10 @@
 ### Kinematic Analysis
 #### 1. Run the forward_kinematics demo and evaluate the kr210.urdf.xacro file to perform kinematic analysis of Kuka KR210 robot and derive its DH parameters.
 
-Here is an example of how to include an image in your writeup.
-
+Following is the schematic to derive DH Parameters. Right hands rule is useful to layout directions of X and Z axis in each joint.
 ![alt text][image1]
 
-#### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
+With schematic above and kr210.urdf.xacro, we can derive DH table as following.
 
 Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 --- | --- | --- | --- | ---
@@ -40,9 +39,13 @@ Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 1->2 | - pi/2 | 0.35 | 0 | -pi/2 + q2
 2->3 | 0 | 1.25 | 0 | 0+q3
 3->4 | - pi/2 | -0.054 | 1.5 | 0+q4
-4->5 | - pi/2 | 0 | 0 | 0+q5
+4->5 |   pi/2 | 0 | 0 | 0+q5
 5->6 | - pi/2 | 0 | 0 | 0+q6
-6->EE | 0 | 0 | 0.303 | 0+q7
+6->EE | 0 | 0 | 0.193+0.11 | 0+q7
+
+
+#### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
+
 
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
