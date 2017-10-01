@@ -31,7 +31,7 @@
 Following is the schematic to derive DH Parameters. Right hands rule is useful to layout directions of X and Z axis in each joint.
 ![alt text][image1]
 
-With schematic above and kr210.urdf.xacro, and following algorithm:
+With schematic above, kr210.urdf.xacro, and following algorithm:
 ```
 Twist angle, alpha(i-1) is the angle between Zi-1 to Zi measured about Xi-1
 Link length, a(i-1) is the distance from Zi-1 to Zi measured along Xi-1
@@ -181,7 +181,7 @@ until testing result matched accordingly.
 In IK_server.py, I moved code with sympy before the for loop. After 54 minutes of simulation, the IK_server.py managed to drop 8 cans into the bin, while 2 cans dropped during IK long running calculation.
 ![alt text][image3]
 
-Conclusion:
+Conclusion: 
 I find myself learning much better with sample code. The walkthrough video actually clear a lot of doubts about IK workflow. 
 I wish the course can have a smaller 3 joints robot as a smaller project, before having this project.
 In this projec, I learnt about sympy, gazebo simulator, trigonometry, matrix, Forward Kinematic and Inverse Kinematic. 
