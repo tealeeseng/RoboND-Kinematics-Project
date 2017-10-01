@@ -1,3 +1,6 @@
+Dear reviewer, Project writeup can be reach at https://github.com/tealeeseng/RoboND-Kinematics-Project/blob/master/leeseng_writeup.md
+
+
 [![Udacity - Robotics NanoDegree Program](https://s3-us-west-1.amazonaws.com/udacity-robotics/Extra+Images/RoboND_flag.png)](https://www.udacity.com/robotics)
 # Robotic arm - Pick & Place project
 
